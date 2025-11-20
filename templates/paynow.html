@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Noney</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h2>Transfer Money</h2>
+        <form method="post">
+            <input type="text" name="payer" placeholder="Enter Payer Address" id="payer">
+            <input type="text" name="payee" placeholder="Enter Payee Address" id="payee">
+            <input type="number" name="amount" placeholder="Enter Amount" id="amount">
+        </form>
+        <form action="/main" method="post">
+            <input type="submit" value="Main">
+        </form>
+    </div>
+</body>
+</html>
