@@ -17,6 +17,9 @@
         <form action="/main" method="post">
             <input type="submit" value="Main">
         </form>
+        <p id="view_payer"></p>
+        <p id="view_payee"></p>
+        <p id="view_amount"></p>
         <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
         <script>
             const contractAddress = "0x84fd323d9ccd19469cb302ae216561eddafda661";
@@ -79,6 +82,12 @@
                 console.log(payer,payee,amount);
                 console.log("accounts[0] " + accounts[0]);
                 await contract.methods.transfer_money(payer, payee, amount).send({from: accounts[0]});
+            }
+            async function transaction() {
+                const result = await contract.methods.transfer_view().call();
+                document.getElementById('view_payer').innerText = "Payer: " + result[0];
+                document.getElementById('view_payee').innerText = "Payee: " + result[1];
+                document.getElementById('view_amount').innerText = "Amount: " + result[2];
             }
         </script>
     </div>
