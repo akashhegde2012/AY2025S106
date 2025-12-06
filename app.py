@@ -38,6 +38,11 @@ def userlog():
 
 @app.route("/deleteuserlog", methods=["GET", "POST"])
 def deleteuserlog():
+    conn = sqlite3.connect("user.db")
+    c = conn.cursor()
+    c.execute("DELETE from user")
+    conn.commit()
+    conn.close()
     return(render_template("deleteuserlog.html"))
 
 if __name__ == "__main__":
