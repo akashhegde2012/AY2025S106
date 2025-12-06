@@ -4,20 +4,27 @@ import sqlite3, datetime
 
 app = Flask(__name__)
 
+flag = 1
+
 @app.route("/", methods=["GET", "POST"])
 def index():
+    global flag
+    flag = 1
     return(render_template("index.html"))
 
 @app.route("/main", methods=["GET", "POST"])
 def main():
-    username = request.form.get("username")
-    print(username)
-    timestamp = datetime.datetime.now()
-    conn = sqlite3.connect("user.db")
-    c = conn.cursor()
-    c.execute("Insert into user(name, timestamp) values(?,?)", (username, timestamp))
-    conn.commit()
-    conn.close()
+    global flag
+    if flag == 1:
+        username = request.form.get("username")
+        print(username)
+        timestamp = datetime.datetime.now()
+        conn = sqlite3.connect("user.db")
+        c = conn.cursor()
+        c.execute("Insert into user(name, timestamp) values(?,?)", (username, timestamp))
+        conn.commit()
+        conn.close()
+        flag = 0
     return(render_template("main.html"))
 
 @app.route("/paynow", methods=["GET", "POST"])
